@@ -1,0 +1,39 @@
+import clubes.*
+
+describe"inicial"{
+	var boca = new Club(perfil=profesional)
+	var almagro = new Club(perfil=tradicional)
+	var argentinos = new Club(perfil=comunitario)
+	var riquelme = new JugadorComunitario(club=argentinos, cantActividades=1,antiguedad=5, valorPase=15000, cantPartidos= 1000)
+	var lopez = new JugadorTradicional(club=almagro, cantActividades=4,antiguedad=5, valorPase=5000, cantPartidos= 10)
+	var gago = new JugadorProfesional(club=boca, cantActividades= 1,antiguedad=5, valorPase=5000, cantPartidos= 100)
+	var tevez = new JugadorProfesional(club=boca, cantActividades= 4, antiguedad=1, valorPase=10000, cantPartidos= 20)
+	var gimenez = new Socio(club=boca, cantActividades= 2, antiguedad=5)
+	var futbol = new Equipo(plantel = #{gago, tevez}, capitan = gago)
+	var truco = new ActividadSocial(socioOrganizador= gimenez, sociosActividad=#{gimenez, tevez})
+
+	test "saber si tevez es estrella" {
+		profesional.valorConfigurado(8000) 
+		assert.equals(true, tevez.esEstrella())
+		}
+		
+	test "saber si gimenez es estrella" {
+		profesional.valorConfigurado(8000) 
+		assert.equals(false, gimenez.esEstrella())
+		}
+		
+		test "saber si lopez es estrella" {
+		tradicional.valorConfigurado(8000) 
+		assert.equals(true, lopez.esEstrella())
+		}
+		test "saber si riquelme es estrella" {
+		assert.equals(false, riquelme.esEstrella())
+		}
+		
+	test "sancionar a boca (actividadSocial = truco)"{
+		boca.socios().add(gago)
+		boca.actividadesSociales().add(truco)
+		boca.sancionar(truco)
+		assert.equals(true, truco.estaSuspendida())
+		}
+}
