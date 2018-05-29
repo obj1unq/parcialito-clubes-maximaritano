@@ -198,3 +198,19 @@ class JugadorTradicional inherits Jugador{
 		return (valorPase > club.perfil().valorConfigurado()) or (self.cantActividades() >= 3)
 	}
 }
+
+object transferir{
+	var property equipoOrigen
+	var property equipoDestino
+		
+	method transferencia(_jugador){
+		/*if _jugador.club().sociosDestacados().contains(_jugador) return self.error("No se puede transferir")
+		if equipoOrigen = equipoDestino return self.error("No se puede transferir")*/
+		equipoOrigen.equipos().plantel().remove(_jugador)
+		and equipoOrigen.actividadesSociales().sociosActividad().remove(_jugador)
+		and equipoDestino.plantel().add(_jugador)
+		and equipoOrigen.socios().remove(_jugador)
+		and equipoDestino.socios().add(_jugador)
+		and _jugador.cantPartidos() == 0
+	}
+}
